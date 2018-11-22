@@ -1,0 +1,257 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[english]{varioref}
+\usepackage[english]{babel}
+\usepackage{datetime}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{placeins}
+\usepackage{url}
+\usepackage{csquotes}
+\usepackage{adjustbox}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{textcomp}
+\usepackage{marginnote}
+\usepackage{enumitem}
+\usepackage{minted}
+\usepackage[top=2.5cm, bottom=2.5cm, outer=5cm, inner=4cm, heightrounded, marginparwidth=3cm, marginparsep=0.5cm]{geometry}
+%\renewcommand\raggedrightmarginnote{\sloppy}
+%\renewcommand\raggedleftmarginnote{\sloppy}
+
+
+\newlength{\storeparskip}
+\setlength{\storeparskip}{\parskip}
+
+\setlength{\parskip}{\baselineskip}%
+\setlength{\parindent}{0pt}%
+
+
+\input{structure.tex}
+
+\setminted{
+frame=lines,
+framesep=2mm,
+baselinestretch=1.2,
+fontsize=\footnotesize,
+linenos,
+breaklines
+}
+
+\title{Network Capturing and Manipulation -- Introduction to Wireshark and Scapy\\{\Large Introduction to Computer Networks}}
+\author{Gilles Callebaut}
+
+\begin{document} \sloppy
+
+\maketitle
+
+\section{Introduction}
+
+\begin{itemize}
+    \item scapy
+    \item wireshark
+    \item what to do in upcoming lab sessions
+\end{itemize}
+
+\section{Getting to know Scapy and Wireshark}
+
+\subsection{Getting to know Wireshark}
+
+\subsubsection{What is Wireshark}
+
+Copied from (\url{https://www.wireshark.org/docs/wsug_html_chunked/ChapterIntroduction.html})
+Wireshark is a network packet analyzer. A network packet analyzer will try to capture network packets and tries to display that packet data as detailed as possible.
+
+You could think of a network packet analyzer as a measuring device used to examine what’s going on inside a network cable, just like a voltmeter is used by an electrician to examine what’s going on inside an electric cable (but at a higher level, of course).
+
+In the past, such tools were either very expensive, proprietary, or both. However, with the advent of Wireshark, all that has changed.
+
+Wireshark is perhaps one of the best open source packet analyzers available today.
+
+The goal of this first lab was primarily to introduce you to Wireshark. The following
+questions will demonstrate that you have been able to get Wireshark up and running, and
+have explored some of its capabilities. Answer the following questions, based on your
+Wireshark experimentation:
+\begin{itemize}
+	\item List \textbf{ten different protocols} that appear in the protocol column in the unfiltered
+	packet-listing window in step 7. What is the \textbf{purpose} of these protocols and \textbf{where} are they located in the \textbf{OSI model}?
+
+	\item How long did it take from when the HTTP GET message was sent until the HTTP
+	OK reply was received?\footnote{By default, the value of the Time column in the packet listing
+		window is the amount of time, in seconds, since Wireshark tracing began.
+		To display the Time field in time-of-day format, select the Wireshark View pull
+		down menu, then select Time Display Format, then select Time-of-day.}
+
+	\item What is the Internet address of the \url{gaia.cs.umass.edu} (also known as \url{www-net.cs.umass.edu})? What is the Internet address of your computer?\footnote{Check if the Internet address shown in Wireshark is really your own Internet address. Tip: use \texttt{ipconfig}.}
+\end{itemize}
+
+
+
+\subsection{Getting to know Scapy}
+Scapy is a Python program that enables the user to send, sniff and dissect and forge network packets. This capability allows construction of tools that can probe, scan or attack networks.
+
+In other words, Scapy is a powerful interactive packet manipulation program. It is able to forge or decode packets of a wide number of protocols, send them on the wire, capture them, match requests and replies, and much more. Scapy can easily handle most classical tasks like scanning, tracerouting, probing, unit tests, attacks or network discovery. It can replace hping, arpspoof, arp-sk, arping, p0f and even some parts of Nmap, tcpdump, and tshark).\footnote{Copied from \url{https://scapy.readthedocs.io/en/latest/introduction.html}.}
+
+\subsubsection{TCP - Three way handshake}
+
+To students: what is the three way handshake
+SYN (Synchronize), ACK (Acknowledgment), and RST (Reset)
+
+Stealth Scanning
+
+
+
+
+\subsubsection{DNS}
+\begin{minted}{python}
+from scapy.all import * 
+
+# FILL IN THE FOLLOWING VARIABLES
+dst_ip_address = "" # Use IP address of Google Public DNS
+sends_over_udp =  # False or True?
+dest_port =  # Port DNS listens to
+site_name = "kuleuven.be" # name of website
+
+
+# DO NOT TOUCH THIS CODE, but feel free to check out the code :)
+network_layer = IP(dst=dst_ip_address)
+transport_layer = UDP() if sends_over_udp else TCP()
+transport_layer.dport = dest_port
+app_layer = DNS(rd=1,qd=DNSQR(qname=site_name))
+
+dns_query = network_layer/transport_layer/app_layer
+print(dns_query.summary())
+
+#send query and wait for 1 response
+response = sr1(dns_query)
+print(response.summary())
+\end{minted}
+
+\begin{minted}{python}
+# Before running this script please install the following items
+# 1. Python3 or Anaconda (be sure to add it to your path)
+# 2. npcap (https://nmap.org/npcap/)
+
+
+# Try to see if a host is alive with ARP
+
+import socket  # to convert port number to protcol/service name
+
+import numpy as np
+from scapy.all import *
+
+SYNACK = 'SA'
+
+network_address = "192.168.0"
+host_addresses = np.arange(0, 255)
+ip_range = ['{}.{}'.format(network_address, i) for i in host_addresses]
+port_range = [21, 22, 80, 443, 5900]
+
+
+def scan_port(target, port):
+    synack_pkt = sr1(IP(dst=target)/TCP(sport=RandShort(),
+                                        dport=port, flags="S"), timeout=1, verbose=False)
+    if(synack_pkt):
+        flag = synack_pkt['TCP'].flags
+        if flag == SYNACK:
+            return True
+    return False
+    # sending a RST packet (to halt the handshake) is not needed because the OS will do this for us,
+    # because it has no knowledge of sensing a SYN packet to that server
+    # TODO check in wireshark if this is the case
+
+
+def is_alive(target):
+    # TODO use ARP to see if the host is alive
+
+for target in ip_range:
+    if is_alive(target):
+        print("{} is alive".format(target))
+        for port in port_range:
+            if(scan_port(target, port)):
+                print("\t {}".format(
+                    target, socket.getservbyport(port, protocolname='tcp')))
+\end{minted}
+
+\subsection{Installation}
+\begin{itemize}
+    \item install Anaconda
+    \item install ipython: \texttt{pip install ipython}
+    \item install npcap
+    \item PyCharm or any other Python IDE
+    \item Wireshark
+    \item ipython
+\end{itemize}
+Reboot your system.
+
+
+\subsection{Basics}
+\subsubsection{Interactive shell}
+\begin{lstlisting}
+>scapy 
+\end{lstlisting}
+
+Go out with 'exit()'
+
+\subsubsection{help()}
+This is a wrapper around pydoc.help\footnote{The pydoc module automatically generates documentation from Python modules. The documentation can be presented as pages of text on the console, served to a Web browser, or saved to HTML files} that provides a helpful message when 'help' is typed at the Python interactive prompt.
+
+Calling help() at the Python prompt starts an interactive help session.
+Calling help(thing) prints help for the python object 'thing'.
+
+\subsubsection{ls()}
+Help on function ls in module scapy.packet:
+\begin{lstlisting}
+ls(obj=None, case_sensitive=False, verbose=False)
+    List  available layers, or infos on a given layer class or name
+\end{lstlisting}
+Examples:
+
+
+\subsubsection{lsc()}
+
+\subsubsection{show\_interfaces()}
+
+\subsubsection{wireshark()}
+
+
+\section{Address Resolution Protocol}
+Answer the following questions prior to commencing with the remainder of this session:
+\begin{itemize}
+    \item On which layer does ARP operate?
+    \item Why is this protocol needed?
+    \item What is an ARP table?
+    \item What is your current ARP table? \textbf{meaning of columns}
+    \item How can you broadcast a link layer frame?
+    \item How is Scapy able of retrieving packets?
+\end{itemize}
+
+\subsection{Make an ARP request to a friend}
+Try to resolve the MAC address of a system in your LAN.
+
+\begin{minted}{python}
+from scapy.all import *
+
+# Fill in the MAC address for ARP request
+mac_addr = "" 
+
+# Fill in the IP address of the machine
+ip_addr = ""
+
+# The following line creates an Ethernet frame (Layer 1)
+# An ARP message operates on top of an Layer 1 frame.
+arp_frame = Ether(dst=mac_addr) / ARP(op=1, pdst=ip_addr)
+
+# Send the frame and wait for answers
+resp, unans = srp(arp_frame)
+
+for s, r in resp:
+    print(r[Ether].src)
+\end{minted}
+
+
+
+
+\end{document}
