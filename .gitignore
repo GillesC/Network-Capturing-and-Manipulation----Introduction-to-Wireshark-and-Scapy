@@ -1,0 +1,10 @@
+
+*.out
+*.log
+*.gz
+*.fls
+*.fdb_latexmk
+*.aux
+*.pygtex
+*.pygstyle
+main.pdf
