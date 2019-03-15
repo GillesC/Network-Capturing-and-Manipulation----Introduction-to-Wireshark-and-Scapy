@@ -35,15 +35,15 @@
 \setminted{
 frame=lines,
 framesep=2mm,
-baselinestretch=1.2,
+baselinestretch=1.1,
 fontsize=\footnotesize,
 linenos,
 breaklines
 }
 
-\title{Network Capturing and Manipulation -- Introduction to Wireshark and Scapy\\{\Large Introduction to Computer Networks}}
+\title{Network Capturing and Manipulation Introduction to Wireshark and Scapy}
 \author{Gilles Callebaut\\ \texttt{gilles.callebaut@kuleuven.be}}
-\date{Technology Campus Ghent, KU Leuven\\ \today}
+\date{Ghent Technology Campus, KU Leuven\\ \today}
 
 \begin{document} \sloppy
 
@@ -51,7 +51,9 @@ breaklines
 
 \newpage
 
+\setcounter{tocdepth}{2}
 \tableofcontents
+\clearpage
 
 \section{Introduction}
 One's understanding of network protocols can often be greatly deepened by ''seeing
@@ -158,7 +160,7 @@ your computer is connected to the Internet via a wired Ethernet interface. Indee
 recommend that you do this first lab on a computer that has a wired Ethernet connection,
 rather than just a wireless connection. Do the following:
 
-\begin{itemize}
+\begin{enumerate}
     \item Start up your favorite web browser, which will display your selected homepage.
     \item Start up the Wireshark software. You will initially see a window similar to that
     shown in Figure 2. Wireshark has not yet begun capturing packets.
@@ -218,10 +220,10 @@ rather than just a wireless connection. Do the following:
     HTTP, and the maximized amount of protocol information for HTTP in the
     packet-header window).
      
-\end{itemize}
+\end{enumerate}
 
 
-Congratulations! Now you can say you are a Wireshark-expert.
+Congratulations! Now you are a Wireshark-expert.
 
 \subsubsection{Questions}
 
@@ -244,50 +246,19 @@ Scapy is a Python program that enables the user to send, sniff and dissect and f
 
 In other words, Scapy is a powerful interactive packet manipulation program. It is able to forge or decode packets of a wide number of protocols, send them on the wire, capture them, match requests and replies, and much more. Scapy can easily handle most classical tasks like scanning, tracerouting, probing, unit tests, attacks or network discovery. It can replace hping, arpspoof, arp-sk, arping, p0f and even some parts of Nmap, tcpdump, and tshark).\footnote{Copied from \url{https://scapy.readthedocs.io/en/latest/introduction.html}.}
 
-
-\begin{itemize}
-    \item install Anaconda 3 (Python 3.X)
-    \item PyCharm or any other Python IDE
-    \item Wireshark
-\end{itemize}
-Reboot your system.
+Scapy can be run in two different modes, interactively from a terminal window and programmatically from a Python script. 
+In these session, we will primarily use scripts. However, the interactive shell is useful to consult the documentation and have access to the help function. More information concerning the interactive shell can be found in Section~\ref{sec:scapy-interactive}.
 
 
-\subsection{Basics}
-\subsubsection{Interactive shell}
-Scapy's interactive shell is run in a terminal session. Root privileges are needed to send the packets.
-
-\begin{lstlisting}
->scapy 
-\end{lstlisting}
-
-Go out with 'exit()'
-
-\subsubsection{help()}
-This is a wrapper around pydoc.help\footnote{The pydoc module automatically generates documentation from Python modules. The documentation can be presented as pages of text on the console, served to a Web browser, or saved to HTML files} that provides a helpful message when 'help' is typed at the Python interactive prompt.
-
-Calling help() at the Python prompt starts an interactive help session.
-Calling help(thing) prints help for the python object 'thing'.
-
-\subsubsection{ls()}
-Help on function ls in module scapy.packet:
-\begin{lstlisting}
-ls(obj=None, case_sensitive=False, verbose=False)
-    List  available layers, or infos on a given layer class or name
-\end{lstlisting}
-Examples:
-
-
-\subsubsection{lsc()}
-
-\subsubsection{show\_interfaces()}
+\subsubsection{Installing Scapy}
+In these labs we will be using Anaconda. Anaconda is developed primarely for data science, it is a Python distribution that comes preinstalled with lots of useful python libraries for data science, including Scapy. To install Anaconda, navigate to \url{www.anaconda.com/distribution/#download-section} and download the Python 3.7 version for your operating system. During the installation procedure, you will have the option to install Visual Studio Code (VSC). Depending on your preferences, you can install VSC or use other Python IDEs such as PyCharm Edu.
 
 
 \subsubsection{Stacking Layers}
 The `/` operator has been used as a composition operator between two layers. When doing so, the lower layer can have one or more of its defaults fields overloaded according to the upper layer.\footnote{\url{https://scapy.readthedocs.io/en/latest/usage.html\#starting-scapy}}
 
  \subsubsection{Sending Packets}
- The sr() function is for sending packets and receiving answers. The function returns a tupple of packet and answers, and the unanswered packets. The function sr1() is a variant that only returns one packet that answered the packet (or the packet set) sent. The packets must be layer 3 packets (IP, ARP, etc.). The function srp() do the same for layer 2 packets (Ethernet, 802.3, etc.). If there is, no response a `None` value will be assigned instead when the timeout is reached.\footnote{\url{https://scapy.readthedocs.io/en/latest/usage.html\#starting-scapy}}
+ The \texttt{sr()} function is for sending packets and receiving answers. The function returns a tupple of packet and answers, and the unanswered packets. The function \texttt{sr1()} is a variant that only returns one packet that answered the packet (or the packet set) sent. The packets must be layer 3 packets (IP, ARP, etc.). The function \texttt{srp()} do the same for layer 2 packets (Ethernet, 802.3, etc.). If there is, no response a `None` value will be assigned instead when the timeout is reached.\footnote{\url{https://scapy.readthedocs.io/en/latest/usage.html\#starting-scapy}}
 
  The ``send'n'receive'' functions family is the heart of scapy. They return a couple of two lists. The first element is a list of couples (packet sent, answer), and the second element is the list of unanswered packets. These two elements are lists, but they are wrapped by an object to present them better, and to provide them with some methods that do most frequently needed actions
 
@@ -315,17 +286,8 @@ http = Ether()/IP(dst=server)/TCP(dport=80)/"GET /index.html HTTP/1.0\r\n\r\n"
 print(F'HTTP-2: {repr(http)}')
 \end{minted}
 
- \section{Sniffing Packets}
+\section{Sniffing Packets}
 
-\subsection{TCP - Three way handshake}
-
-To students: what is the three way handshake
-SYN (Synchronize), ACK (Acknowledgment), and RST (Reset)
-
-Stealth Scanning
-
-
-The same effect can be achieved with the `report\_ports' function. Automates the SYN scan, but also produces a LaTeX output with collected results
 
 \subsection{DNS}
 
@@ -334,56 +296,11 @@ The same effect can be achieved with the `report\_ports' function. Automates the
 
 Why is the rd parameter needed?
 
+\begin{listing}[h]
 \inputminted[firstline=16]{python}{../code_students/dns_query.py}
-
-
-\begin{minted}{python}
-# Before running this script please install the following items
-# 1. Python3 or Anaconda (be sure to add it to your path)
-# 2. npcap (https://nmap.org/npcap/)
-
-
-# Try to see if a host is alive with ARP
-
-import socket  # to convert port number to protcol/service name
-
-import numpy as np
-from scapy.all import *
-
-SYNACK = 'SA'
-
-network_address = "192.168.0"
-host_addresses = np.arange(0, 255)
-ip_range = [F'{network_address}.{i}' for i in host_addresses]
-port_range = [21, 22, 80, 443, 5900]
-
-
-def scan_port(target, port):
-    synack_pkt = sr1(IP(dst=target)/TCP(sport=RandShort(),
-                                        dport=port, flags="S"), timeout=1, verbose=False)
-    if(synack_pkt):
-        flag = synack_pkt['TCP'].flags
-        if flag == SYNACK:
-            return True
-    return False
-    # sending a RST packet (to halt the handshake) is not needed because the OS will do this for us,
-    # because it has no knowledge of sensing a SYN packet to that server
-    # TODO check in wireshark if this is the case
-
-
-def is_alive(target):
-    # TODO use ARP to see if the host is alive
-
-for target in ip_range:
-    if is_alive(target):
-        print("{} is alive".format(target))
-        for port in port_range:
-            if(scan_port(target, port)):
-                print("\t {}".format(
-                    target, socket.getservbyport(port, protocolname='tcp')))
-\end{minted}
-
-
+\caption{DNS Query}%
+\label{listing:dns-query}
+\end{listing}
 
 
 \section{Address Resolution Protocol}
@@ -400,6 +317,7 @@ Answer the following questions prior to commencing with the remainder of this se
 \subsection{Make an ARP request to a friend}
 Try to resolve the MAC address of a system in your LAN.
 
+\begin{listing}[h]
 \begin{minted}{python}
 from scapy.all import *
 
@@ -419,8 +337,60 @@ resp, unans = srp(arp_frame)
 for s, r in resp:
     print(r[Ether].src)
 \end{minted}
+\caption{ARP}\label{listing:stealth-scanning}
+\end{listing}
 
 
+\subsection{Stealth Scanning}
+Stealth scanning exploits the TCP three way handshake to discover if ports are open on an Internet-accessible computer. In order to understand the working principle of this technique, study the TCP three way handshake and include this in you report.
+
+Extend the example code for the stealth attack in order to discover open ports on servers.
+Try to use the \texttt{report\_ports} function of scapy to evaluate the results of your code.
+
+
+\begin{listing}[h]
+\inputminted{python}{../code_students/stealth_scanning.py}
+\caption{Stealth Scanning}%
+\label{listing:stealth-scanning}
+\end{listing}
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%% APPENDIX %%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\appendix
+\section{Scapy interactive shell}\label{sec:scapy-interactive}
+
+Scapy's interactive shell is run in a terminal session. Root privileges are needed to send the packets.
+
+\begin{lstlisting}
+>scapy 
+\end{lstlisting}
+
+Go out with 'exit()'
+
+\subsubsection{help()}
+This is a wrapper around pydoc.help\footnote{The pydoc module automatically generates documentation from Python modules. The documentation can be presented as pages of text on the console, served to a Web browser, or saved to HTML files} that provides a helpful message when 'help' is typed at the Python interactive prompt.
+
+Calling help() at the Python prompt starts an interactive help session.
+Calling help(thing) prints help for the python object 'thing'.
+
+\subsubsection{ls()}
+Help on function ls in module scapy.packet:
+\begin{lstlisting}
+ls(obj=None, case_sensitive=False, verbose=False)
+    List  available layers, or infos on a given layer class or name
+\end{lstlisting}
+Examples:
+
+
+\subsubsection{lsc()}
+
+\subsubsection{show\_interfaces()}
 
 
 \end{document}
