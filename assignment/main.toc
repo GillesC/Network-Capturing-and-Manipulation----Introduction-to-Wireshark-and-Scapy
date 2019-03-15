@@ -1,0 +1,22 @@
+\babel@toc {english}{}
+\contentsline {section}{\numberline {1}Introduction}{3}{section.1}
+\contentsline {section}{\numberline {2}Getting to know Scapy and Wireshark}{3}{section.2}
+\contentsline {subsection}{\numberline {2.1}Getting to know Wireshark}{4}{subsection.2.1}
+\contentsline {subsubsection}{\numberline {2.1.1}Installing Wireshark}{4}{subsubsection.2.1.1}
+\contentsline {subsubsection}{\numberline {2.1.2}Running Wireshark}{4}{subsubsection.2.1.2}
+\contentsline {subsubsection}{\numberline {2.1.3}Taking Wireshark for a Test Run}{6}{subsubsection.2.1.3}
+\contentsline {subsubsection}{\numberline {2.1.4}Questions}{8}{subsubsection.2.1.4}
+\contentsline {subsection}{\numberline {2.2}Getting to know Scapy}{8}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Basics}{9}{subsection.2.3}
+\contentsline {subsubsection}{\numberline {2.3.1}Interactive shell}{9}{subsubsection.2.3.1}
+\contentsline {subsubsection}{\numberline {2.3.2}help()}{9}{subsubsection.2.3.2}
+\contentsline {subsubsection}{\numberline {2.3.3}ls()}{9}{subsubsection.2.3.3}
+\contentsline {subsubsection}{\numberline {2.3.4}lsc()}{10}{subsubsection.2.3.4}
+\contentsline {subsubsection}{\numberline {2.3.5}show\_interfaces()}{10}{subsubsection.2.3.5}
+\contentsline {subsubsection}{\numberline {2.3.6}Stacking Layers}{10}{subsubsection.2.3.6}
+\contentsline {subsubsection}{\numberline {2.3.7}Sending Packets}{10}{subsubsection.2.3.7}
+\contentsline {section}{\numberline {3}Sniffing Packets}{11}{section.3}
+\contentsline {subsection}{\numberline {3.1}TCP - Three way handshake}{11}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}DNS}{11}{subsection.3.2}
+\contentsline {section}{\numberline {4}Address Resolution Protocol}{13}{section.4}
+\contentsline {subsection}{\numberline {4.1}Make an ARP request to a friend}{13}{subsection.4.1}

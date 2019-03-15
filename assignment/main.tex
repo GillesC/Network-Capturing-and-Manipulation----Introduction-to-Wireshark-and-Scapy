@@ -1,0 +1,426 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[english]{varioref}
+\usepackage[english]{babel}
+\usepackage{datetime}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{placeins}
+\usepackage{url}
+\usepackage{csquotes}
+\usepackage{adjustbox}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{textcomp}
+\usepackage{marginnote}
+\usepackage{enumitem}
+\usepackage{minted}
+\usepackage[top=2.5cm, bottom=2.5cm, outer=5cm, inner=4cm, heightrounded, marginparwidth=3cm, marginparsep=0.5cm]{geometry}
+%\renewcommand\raggedrightmarginnote{\sloppy}
+%\renewcommand\raggedleftmarginnote{\sloppy}
+
+
+\newlength{\storeparskip}
+\setlength{\storeparskip}{\parskip}
+
+\setlength{\parskip}{\baselineskip}%
+\setlength{\parindent}{0pt}%
+
+
+\input{structure.tex}
+
+\setminted{
+frame=lines,
+framesep=2mm,
+baselinestretch=1.2,
+fontsize=\footnotesize,
+linenos,
+breaklines
+}
+
+\title{Network Capturing and Manipulation -- Introduction to Wireshark and Scapy\\{\Large Introduction to Computer Networks}}
+\author{Gilles Callebaut\\ \texttt{gilles.callebaut@kuleuven.be}}
+\date{Technology Campus Ghent, KU Leuven\\ \today}
+
+\begin{document} \sloppy
+
+\maketitle
+
+\newpage
+
+\tableofcontents
+
+\section{Introduction}
+One's understanding of network protocols can often be greatly deepened by ''seeing
+protocols in action'' and by ''playing around with protocols'' – observing the sequence of messages exchanged between two protocol entities, delving down into the details of protocol operation, and causing protocols to perform certain actions and then observing these actions and their consequences. This can be done in simulated scenarios or in a ''real'' network environment such as the Internet. 
+
+In these labs you will be observing as well as manipulating the network protocols
+in your computer ''in action'' interacting and exchanging messages with protocol entities executing elsewhere in the Internet. 
+
+\begin{itemize}
+    \item scapy
+    \item wireshark
+    \item Building scripts to monitor and hack networks. Use wireshark to monitor your attacks!
+    \item gekopieerd in order to bring everything in one place.
+\end{itemize}
+
+\section{Getting to know Scapy and Wireshark}
+Copied from (\url{https://www.wireshark.org/docs/wsug_html_chunked/ChapterIntroduction.html})
+Wireshark is a network packet analyzer. A network packet analyzer will try to capture network packets and tries to display that packet data as detailed as possible.
+
+You could think of a network packet analyzer as a measuring device used to examine what's going on inside a network cable, just like a voltmeter is used by an electrician to examine what's going on inside an electric cable (but at a higher level, of course).
+
+In the past, such tools were either very expensive, proprietary, or both. However, with the advent of Wireshark, all that has changed. Wireshark is perhaps one of the best open source packet analyzers available today.
+
+The goal of this first lab is to introduce you to Wireshark and get you acquainted with it's intrerface. The following questions will demonstrate that you have been able to get Wireshark up and running, and have explored some of its capabilities.
+But first, install Wireshark and capture some data!
+
+\subsection{Getting to know Wireshark}
+In this first Wireshark lab, you will get acquainted with Wireshark, and make some simple packet captures and observations.
+The basic tool for observing the messages exchanged between executing protocol entities is called a packet sniffer. As the name suggests, a packet sniffer captures ''sniffs'') messages being sent/received from/by your computer; it will also typically store and/or display the contents of the various protocol fields in these captured messages. A packet sniffer itself is passive. It observes messages being sent and received by applications and protocols running on your computer, but never sends packets itself. Similarly, received packets are never explicitly addressed to the packet sniffer. Instead, a packet sniffer receives a copy of packets that are sent/received from/by application and protocols executing on your machine.
+
+\subsubsection{Installing Wireshark}
+In order to run Wireshark, you will need to have access to a computer that supports both
+Wireshark and the libpcap or WinPCap packet capture library. The libpcap software will
+be installed for you, if it is not installed within your operating system, when you install Wireshark.
+
+\subsubsection{Running Wireshark}
+When you run the Wireshark program, you'll get a startup screen that looks something
+like the screen below. Different versions of Wireshark will have different startup screens
+-- so don't panic if yours doesn't look exactly like the screen below!
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{start_screen.jpg}
+    \caption{Initial Wireshark Screen}
+\end{figure}
+
+There's not much interesting on this screen. But note that under the Capture section,
+there is a list of so-called interfaces. The computer we're taking these screenshots from has just one real interface – “Wi-Fi en0,” which is the interface for Wi-Fi access. All
+packets to/from this computer will pass through the Wi-Fi interface, so it's here where we want to capture packets. Be sure to locate the interface on the startup page through which you are getting Internet
+connectivity, e.g., mostly likely a WiFi or Ethernet interface, and select that interface.
+
+
+
+Let's take Wireshark out for a spin! If you click on one of these interfaces to start packet
+capture (i.e., for Wireshark to begin capturing all packets being sent to/from that
+interface), a screen like the one below will be displayed, showing information about the
+packets being captured. Once you start packet capture, you can stop it by using the
+Capture pull down menu and selecting Stop.
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{capturing.png}
+    \caption{Wireshark Graphical User Interface, during packet capture and analysis}
+\end{figure}
+
+This looks more interesting! The Wireshark interface has five major components:
+\begin{itemize}
+    \item The \textbf{command menus} are standard pulldown menus located at the top of the
+    window. Of interest to us now are the File and Capture menus. The File menu
+    allows you to save captured packet data or open a file containing previously
+    captured packet data, and exit the Wireshark application. The Capture menu
+    allows you to begin packet capture.
+    \item The \textbf{packet-listing window} displays a one-line summary for each packet
+    captured, including the packet number (assigned by Wireshark; this is not a
+    packet number contained in any protocol's header), the time at which the packet
+    was captured, the packet's source and destination addresses, the protocol type,
+    and protocol-specific information contained in the packet. The packet listing can
+    be sorted according to any of these categories by clicking on a column name. The
+    protocol type field lists the highest-level protocol that sent or received this packet,
+    i.e., the protocol that is the source or ultimate sink for this packet.
+    \item The \textbf{packet-header details window} provides details about the packet selected
+    (highlighted) in the packet-listing window. (To select a packet in the packetlisting
+    window, place the cursor over the packet's one-line summary in the
+    packet-listing window and click with the left mouse button.). These details
+    include information about the Ethernet frame (assuming the packet was
+    sent/received over an Ethernet interface) and IP datagram that contains this
+    packet. The amount of Ethernet and IP-layer detail displayed can be expanded or
+    minimized by clicking on the plus minus boxes to the left of the Ethernet frame or
+    IP datagram line in the packet details window. If the packet has been carried over
+    TCP or UDP, TCP or UDP details will also be displayed, which can similarly be
+    expanded or minimized. Finally, details about the highest-level protocol that sent
+    or received this packet are also provided.
+    \item The \textbf{packet-contents window} displays the entire contents of the captured frame,
+    in both ASCII and hexadecimal format.
+    \item Towards the top of the Wireshark graphical user interface, is the \textbf{packet display
+    filter field}, into which a protocol name or other information can be entered in
+    order to filter the information displayed in the packet-listing window (and hence
+    the packet-header and packet-contents windows). In the example below, we'll
+    use the packet-display filter field to have Wireshark hide (not display) packets
+    except those that correspond to HTTP messages.
+\end{itemize}
+
+\subsubsection{Taking Wireshark for a Test Run}
+The best way to learn about any new piece of software is to try it out! We’ll assume that
+your computer is connected to the Internet via a wired Ethernet interface. Indeed, I
+recommend that you do this first lab on a computer that has a wired Ethernet connection,
+rather than just a wireless connection. Do the following:
+
+\begin{itemize}
+    \item Start up your favorite web browser, which will display your selected homepage.
+    \item Start up the Wireshark software. You will initially see a window similar to that
+    shown in Figure 2. Wireshark has not yet begun capturing packets.
+    \item To begin packet capture, select the Capture pull down menu and select Interfaces.
+    This will cause the “Wireshark: Capture Interfaces” window to be displayed, as
+    shown in Figure 4.
+    \item You’ll see a list of the interfaces on your computer as well as a count of the
+    packets that have been observed on that interface so far. Click on Start for the
+    interface on which you want to begin packet capture (in the case, the Gigabit
+    network Connection). Packet capture will now begin - Wireshark is now
+    capturing all packets being sent/received from/by your computer!
+    \item Once you begin packet capture, a window similar to that shown in Figure 3 will
+    appear. This window shows the packets being captured. By selecting Capture
+    pulldown menu and selecting Stop, you can stop packet capture. But don’t stop
+    packet capture yet. Let’s capture some interesting packets first. To do so, we’ll
+    need to generate some network traffic. Let’s do so using a web browser, which
+    will use the HTTP protocol that we will study in detail in class to download
+    content from a website.
+    \item While Wireshark is running, enter the URL:
+    http://gaia.cs.umass.edu/wireshark-labs/INTRO-wireshark-file1.html
+    and have that page displayed in your browser. In order to display this page, your
+    browser will contact the HTTP server at gaia.cs.umass.edu and exchange HTTP
+    messages with the server in order to download this page, as discussed in section
+    2.2 of the text. The Ethernet frames containing these HTTP messages (as well as
+    all other frames passing through your Ethernet adapter) will be captured by
+    Wireshark.
+    \item After your browser has displayed the INTRO-wireshark-file1.html page (it is a
+    simple one line of congratulations), stop Wireshark packet capture by selecting
+    stop in the Wireshark capture window. The main Wireshark window should now
+    look similar to Figure 3. You now have live packet data that contains all protocol
+    messages exchanged between your computer and other network entities! The
+    HTTP message exchanges with the gaia.cs.umass.edu web server should appear
+    somewhere in the listing of packets captured. But there will be many other types
+    of packets displayed as well (see, e.g., the many different protocol types shown in
+    the Protocol column in Figure 3). Even though the only action you took was to
+    download a web page, there were evidently many other protocols running on your
+    computer that are unseen by the user. We’ll learn much more about these
+    protocols as we progress through the text! For now, you should just be aware that
+    there is often much more going on than “meet’s the eye”!
+    \item Type in “http” (without the quotes, and in lower case – all protocol names are in
+    lower case in Wireshark) into the display filter specification window at the top of
+    the main Wireshark window. Then select Apply (to the right of where you entered
+    “http”). This will cause only HTTP message to be displayed in the packet-listing
+    window.
+    \item Find the HTTP GET message that was sent from your computer to the
+    gaia.cs.umass.edu HTTP server. (Look for an HTTP GET message in the “listing
+    of captured packets” portion of the Wireshark window (see Figure 3) that shows
+    “GET” followed by the gaia.cs.umass.edu URL that you entered. When you
+    select the HTTP GET message, the Ethernet frame, IP datagram, TCP segment,
+    and HTTP message header information will be displayed in the packet-header
+    window2. By clicking on ‘+’ and ‘-‘ right-pointing and down-pointing arrowheads
+    to the left side of the packet details window, minimize the amount of Frame,
+    Ethernet, Internet Protocol, and Transmission Control Protocol information
+    displayed. Maximize the amount information displayed about the HTTP protocol.
+    Your Wireshark display should now look roughly as shown in Figure 5. (Note, in
+    particular, the minimized amount of protocol information for all protocols except
+    HTTP, and the maximized amount of protocol information for HTTP in the
+    packet-header window).
+     
+\end{itemize}
+
+
+Congratulations! Now you can say you are a Wireshark-expert.
+
+\subsubsection{Questions}
+
+Answer the following questions, based on your Wireshark experimentation:
+\begin{itemize}
+	\item List \textbf{ten different protocols} that appear in the protocol column in the unfiltered
+	packet-listing window in step 7. What is the \textbf{purpose} of these protocols and \textbf{where} are they located in the \textbf{OSI model}?
+
+	\item How long did it take from when the HTTP GET message was sent until the HTTP
+	OK reply was received?\footnote{By default, the value of the Time column in the packet listing
+		window is the amount of time, in seconds, since Wireshark tracing began.
+		To display the Time field in time-of-day format, select the Wireshark View pull
+		down menu, then select Time Display Format, then select Time-of-day.}
+
+	\item What is the Internet address of the \url{gaia.cs.umass.edu} (also known as \url{www-net.cs.umass.edu})? What is the Internet address of your computer?\footnote{Check if the Internet address shown in Wireshark is really your own Internet address. Tip: use \texttt{ipconfig}.}
+\end{itemize}
+
+\subsection{Getting to know Scapy}
+Scapy is a Python program that enables the user to send, sniff and dissect and forge network packets. This capability allows construction of tools that can probe, scan or attack networks.
+
+In other words, Scapy is a powerful interactive packet manipulation program. It is able to forge or decode packets of a wide number of protocols, send them on the wire, capture them, match requests and replies, and much more. Scapy can easily handle most classical tasks like scanning, tracerouting, probing, unit tests, attacks or network discovery. It can replace hping, arpspoof, arp-sk, arping, p0f and even some parts of Nmap, tcpdump, and tshark).\footnote{Copied from \url{https://scapy.readthedocs.io/en/latest/introduction.html}.}
+
+
+\begin{itemize}
+    \item install Anaconda 3 (Python 3.X)
+    \item PyCharm or any other Python IDE
+    \item Wireshark
+\end{itemize}
+Reboot your system.
+
+
+\subsection{Basics}
+\subsubsection{Interactive shell}
+Scapy's interactive shell is run in a terminal session. Root privileges are needed to send the packets.
+
+\begin{lstlisting}
+>scapy 
+\end{lstlisting}
+
+Go out with 'exit()'
+
+\subsubsection{help()}
+This is a wrapper around pydoc.help\footnote{The pydoc module automatically generates documentation from Python modules. The documentation can be presented as pages of text on the console, served to a Web browser, or saved to HTML files} that provides a helpful message when 'help' is typed at the Python interactive prompt.
+
+Calling help() at the Python prompt starts an interactive help session.
+Calling help(thing) prints help for the python object 'thing'.
+
+\subsubsection{ls()}
+Help on function ls in module scapy.packet:
+\begin{lstlisting}
+ls(obj=None, case_sensitive=False, verbose=False)
+    List  available layers, or infos on a given layer class or name
+\end{lstlisting}
+Examples:
+
+
+\subsubsection{lsc()}
+
+\subsubsection{show\_interfaces()}
+
+
+\subsubsection{Stacking Layers}
+The `/` operator has been used as a composition operator between two layers. When doing so, the lower layer can have one or more of its defaults fields overloaded according to the upper layer.\footnote{\url{https://scapy.readthedocs.io/en/latest/usage.html\#starting-scapy}}
+
+ \subsubsection{Sending Packets}
+ The sr() function is for sending packets and receiving answers. The function returns a tupple of packet and answers, and the unanswered packets. The function sr1() is a variant that only returns one packet that answered the packet (or the packet set) sent. The packets must be layer 3 packets (IP, ARP, etc.). The function srp() do the same for layer 2 packets (Ethernet, 802.3, etc.). If there is, no response a `None` value will be assigned instead when the timeout is reached.\footnote{\url{https://scapy.readthedocs.io/en/latest/usage.html\#starting-scapy}}
+
+ The ``send'n'receive'' functions family is the heart of scapy. They return a couple of two lists. The first element is a list of couples (packet sent, answer), and the second element is the list of unanswered packets. These two elements are lists, but they are wrapped by an object to present them better, and to provide them with some methods that do most frequently needed actions
+
+ \begin{minted}{python}
+ # Begin our Scapy script.
+from scapy.all import *
+
+# Build our packet layer by layer
+server = 'google.com'
+
+packet = Ether(src='00:00:00:11:11:11')
+print(F'Ethernet: {repr(packet)}\n')
+
+ip = packet/IP(dst=server)
+print(F'IP: {repr(ip)}\n')
+
+tcp = ip/TCP(dport=80)
+print(F'TCP: {repr(tcp)}\n')
+
+http = tcp/"GET /index.html HTTP/1.0\r\n\r\n"
+print(F'HTTP-1: {repr(http)}')
+
+# Build the packet in one step
+http = Ether()/IP(dst=server)/TCP(dport=80)/"GET /index.html HTTP/1.0\r\n\r\n"
+print(F'HTTP-2: {repr(http)}')
+\end{minted}
+
+ \section{Sniffing Packets}
+
+\subsection{TCP - Three way handshake}
+
+To students: what is the three way handshake
+SYN (Synchronize), ACK (Acknowledgment), and RST (Reset)
+
+Stealth Scanning
+
+
+The same effect can be achieved with the `report\_ports' function. Automates the SYN scan, but also produces a LaTeX output with collected results
+
+\subsection{DNS}
+
+% inputminted{python}{file.py}
+% \inputminted[firstline=3,lastline=5]{c}{helloworld.c}
+
+Why is the rd parameter needed?
+
+\inputminted[firstline=16]{python}{../code_students/dns_query.py}
+
+
+\begin{minted}{python}
+# Before running this script please install the following items
+# 1. Python3 or Anaconda (be sure to add it to your path)
+# 2. npcap (https://nmap.org/npcap/)
+
+
+# Try to see if a host is alive with ARP
+
+import socket  # to convert port number to protcol/service name
+
+import numpy as np
+from scapy.all import *
+
+SYNACK = 'SA'
+
+network_address = "192.168.0"
+host_addresses = np.arange(0, 255)
+ip_range = [F'{network_address}.{i}' for i in host_addresses]
+port_range = [21, 22, 80, 443, 5900]
+
+
+def scan_port(target, port):
+    synack_pkt = sr1(IP(dst=target)/TCP(sport=RandShort(),
+                                        dport=port, flags="S"), timeout=1, verbose=False)
+    if(synack_pkt):
+        flag = synack_pkt['TCP'].flags
+        if flag == SYNACK:
+            return True
+    return False
+    # sending a RST packet (to halt the handshake) is not needed because the OS will do this for us,
+    # because it has no knowledge of sensing a SYN packet to that server
+    # TODO check in wireshark if this is the case
+
+
+def is_alive(target):
+    # TODO use ARP to see if the host is alive
+
+for target in ip_range:
+    if is_alive(target):
+        print("{} is alive".format(target))
+        for port in port_range:
+            if(scan_port(target, port)):
+                print("\t {}".format(
+                    target, socket.getservbyport(port, protocolname='tcp')))
+\end{minted}
+
+
+
+
+\section{Address Resolution Protocol}
+Answer the following questions prior to commencing with the remainder of this session:
+\begin{itemize}
+    \item On which layer does ARP operate?
+    \item Why is this protocol needed?
+    \item What is an ARP table?
+    \item What is your current ARP table? \textbf{meaning of columns}
+    \item How can you broadcast a link layer frame?
+    \item How is Scapy able of retrieving packets?
+\end{itemize}
+
+\subsection{Make an ARP request to a friend}
+Try to resolve the MAC address of a system in your LAN.
+
+\begin{minted}{python}
+from scapy.all import *
+
+# Fill in the MAC address for ARP request
+mac_addr = "" 
+
+# Fill in the IP address of the machine
+ip_addr = ""
+
+# The following line creates an Ethernet frame (Layer 1)
+# An ARP message operates on top of an Layer 1 frame.
+arp_frame = Ether(dst=mac_addr) / ARP(op=1, pdst=ip_addr)
+
+# Send the frame and wait for answers
+resp, unans = srp(arp_frame)
+
+for s, r in resp:
+    print(r[Ether].src)
+\end{minted}
+
+
+
+
+\end{document}
