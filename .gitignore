@@ -9,3 +9,4 @@
 *.pygstyle
 main.pdf
 code/
+*.toc

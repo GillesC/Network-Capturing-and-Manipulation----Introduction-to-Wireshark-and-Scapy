@@ -15,7 +15,7 @@
 \usepackage{float}
 \usepackage{textcomp}
 \usepackage{marginnote}
-\usepackage{enumitem}
+%\usepackage{enumitem}
 \usepackage{graphicx}
 
 \usepackage{minted}
@@ -47,33 +47,31 @@ breaklines
 \author{Gilles Callebaut\\ \texttt{gilles.callebaut@kuleuven.be}}
 \date{Ghent Technology Campus, KU Leuven\\ \today}
 
+
+
 \begin{document} \sloppy
 
 \maketitle
 
-\newpage
+\clearpage
 
 \setcounter{tocdepth}{2}
 \tableofcontents
 \clearpage
 
 \section{Introduction}
-One's understanding of network protocols can often be greatly deepened by ''seeing
-protocols in action'' and by ''playing around with protocols'' – observing the sequence of messages exchanged between two protocol entities, delving down into the details of protocol operation, and causing protocols to perform certain actions and then observing these actions and their consequences. This can be done in simulated scenarios or in a ''real'' network environment such as the Internet. 
+One's understanding of network protocols can often be greatly deepened by ``seeing
+protocols in action'' and by ``playing around with protocols'' – observing the sequence of messages exchanged between two protocol entities, delving down into the details of protocol operation, and causing protocols to perform certain actions and then observing these actions and their consequences. This can be done in simulated scenarios or in a ``real'' network environment such as the Internet. 
 
-In these labs you will be observing as well as manipulating the network protocols in your computer ''in action'' interacting and exchanging messages with protocol entities executing elsewhere in the Internet. Mores specifically, we will focus on Wireshark to monitor packets and Scapy, a Python library, to manipulate them. 
+In these labs you will be observing as well as manipulating the network protocols in your computer ``in action'' interacting and exchanging messages with protocol entities executing elsewhere in the Internet. 
+You could think of a network packet analyzer as a measuring device used to examine what's going on inside a network cable, just like a voltmeter is used by an electrician to examine what's going on inside an electric cable. We will focus on Wireshark to monitor packets and Scapy, a Python library, to manipulate them. 
 
-
-You could think of a network packet analyzer as a measuring device used to examine what's going on inside a network cable, just like a voltmeter is used by an electrician to examine what's going on inside an electric cable.
-
-
-The first goal of this lab is to introduce you to Wireshark and get you acquainted with it's intrerface. The following questions will demonstrate that you have been able to get Wireshark up and running, and have explored some of its capabilities.
+The first goal of this lab is to introduce you to Wireshark and get you acquainted with it's interface. The following questions will demonstrate that you have been able to get Wireshark up and running, and have explored some of its capabilities.
 But first, install Wireshark and capture some data!
 
 \section{Getting to know Wireshark}
 In this first Wireshark lab, you will get acquainted with Wireshark, and make some simple packet captures and observations.
-The basic tool for observing the messages exchanged between executing protocol entities is called a packet sniffer. As the name suggests, a packet sniffer captures ''sniffs'') messages being sent/received from/by your computer; it will also typically store and/or display the contents of the various protocol fields in these captured messages. A packet sniffer itself is passive. It observes messages being sent and received by applications and protocols running on your computer, but never sends packets itself. Similarly, received packets are never explicitly addressed to the packet sniffer. Instead, a packet sniffer receives a copy of packets that are sent/received from/by application and protocols executing on your machine.
-
+The basic tool for observing the messages exchanged between executing protocol entities is called a packet sniffer. As the name suggests, a packet sniffer captures (``sniffs'') messages being sent/received from/by your computer; it will also typically store and/or display the contents of the various protocol fields in these captured messages. A packet sniffer itself is passive. It observes messages being sent and received by applications and protocols running on your computer, but never sends packets itself. Similarly, received packets are never explicitly addressed to the packet sniffer. Instead, a packet sniffer receives a copy of packets that are sent/received from/by application and protocols executing on your machine.
 
 \begin{question}
     Is Wireshark able to capture packets that are not addressed to your computer?
@@ -137,13 +135,13 @@ This looks more interesting! The Wireshark interface has five major components:
     \item Start up the Wireshark software. You will initially see a window similar to that
     shown in Figure~\ref{fig:init-screen}. Wireshark has not yet begun capturing packets.
     \item You’ll see a list of the interfaces on your computer as well as the current activity on that interface. Click on the
-    interface on which you want to begin packet capture. Packet capture will now begin - Wireshark is now
+    interface on which you want to begin packet capture. Packet capture will now begin -- Wireshark is now
     capturing all packets being sent/received from/by your computer!
     \item Once you begin packet capture, a window will
     appear showing the packets being captured as also shown in Fig.~\ref{fig:packet_capt}. By selecting Capture
     pulldown menu and selecting Stop, you can stop packet capture. But don’t stop
     packet capture yet. 
-    Let’s capture some interesting packets first. To do so, we’ll
+    Let's capture some interesting packets first. To do so, we'll
     need to generate some network traffic. Let’s do so using a web browser, which
     will use the HTTP protocol that we will study in detail in class to download
     content from a website.
@@ -170,16 +168,16 @@ This looks more interesting! The Wireshark interface has five major components:
     window.
     
     \begin{question}
-        List \textbf{ten different protocols} that appear in the protocol column in the unfiltered packet-listing window. Try to explain the most important fields of at least three of these protocols. What is the \textbf{purpose} of these protocols and \textbf{where} are they located in the \textbf{OSI model}?
+        List \textbf{ten different protocols} that appear in the protocol column in the unfiltered packet-listing window. Try to explain the most important fields of, at least, three of these protocols. What is the \textbf{purpose} of these protocols and \textbf{where} are they located in the \textbf{OSI model}?
     \end{question}%
     
     
     
     
     \item Find the HTTP GET message that was sent from your computer to the
-    \url{gaia.cs.umass.edu} HTTP server. (Look for an HTTP GET message in the ''listing
+    \url{gaia.cs.umass.edu} HTTP server. (Look for an HTTP GET message in the ``listing
     of captured packets'' portion of the Wireshark window  that shows
-    ''GET'' followed by the \url{gaia.cs.umass.edu} URL that you entered. When you
+    ``GET'' followed by the \url{gaia.cs.umass.edu} URL that you entered. When you
     select the HTTP GET message, the Ethernet frame, IP datagram, TCP segment,
     and HTTP message header information will be displayed in the packet-header
     window. 
@@ -199,18 +197,18 @@ This looks more interesting! The Wireshark interface has five major components:
 
 Congratulations! You are now a Wireshark-expert.
 
-
+\FloatBarrier
 \section{Getting to know Scapy}
 After monitoring packets in Wireshark, let's manipulate some packets with Scapy!
 
-Scapy is a powerful interactive packet manipulation program. It is able to forge or decode packets of a wide number of protocols, send them on the wire, capture them, match requests and replies, and much more. Scapy can easily handle most classical tasks like scanning, tracerouting, probing, unit tests, attacks or network discovery. It can replace hping, arpspoof, arp-sk, arping, p0f and even some parts of Nmap, tcpdump, and tshark).
+Scapy is a powerful interactive packet manipulation program. It is able to forge or decode packets of a wide number of protocols, send them on the wire, capture them, match requests and replies, and much more. Scapy can easily handle most classical tasks like scanning, tracerouting, probing, unit tests, attacks or network discovery. It can replace hping, arpspoof, arp-sk, arping, p0f and even some parts of Nmap, tcpdump, and tshark.
 
 Scapy can be run in two different modes, interactively from a terminal window and programmatically from a Python script. 
-In these sessions, we will primarily use scripts. However, the interactive shell is useful to consult the documentation and  access the \texttt{ls} function. I advise to open terminal to use the functions, described in Section~\ref{sec:scapy-interactive}, to better understand the code.
+In these sessions, we will primarily use scripts. However, the interactive shell is useful to consult the documentation and  access the \texttt{ls} function. I advise you to open a terminal to use the functions described in Section~\ref{sec:scapy-interactive} to better understand the code.
 
 
 \subsection{Installing Scapy}
-In these labs we will be using Anaconda. Anaconda is developed primarily for data science, it is a Python distribution that comes preinstalled with lots of useful python libraries for data science, including Scapy. To install Anaconda, navigate to \url{www.anaconda.com/distribution/#download-section} and download the Python 3.7 version for your operating system. During the installation procedure, you will have the option to install Visual Studio Code (VSC). Depending on your preferences, you can install VSC or use other Python IDEs, e.g., PyCharm Edu.
+In these labs we will be using Anaconda. Anaconda is developed primarily for data science, it is a Python distribution that comes preinstalled with lots of useful python libraries for data science. To install Anaconda, navigate to \url{www.anaconda.com/distribution/#download-section} and download the Python 3.7 version for your operating system. During the installation procedure, you will have the option to install Visual Studio Code (VSC). Depending on your preferences, you can install VSC or use other Python IDEs, e.g., PyCharm Edu. After installing Anaconda, open the Anaconda Prompt and install Scapy: \texttt{pip install scapy}.
 
 \begin{question}
     Open a Terminal and open the Scapy interactive shell. Try to find the default interface by executing \texttt{conf.iface}. Is this the correct interface? 
@@ -229,7 +227,7 @@ Packets consists of different nested layers, cfr. OSI-model. This is depicted in
 
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{assignment/packet_layered.png}
+    \includegraphics[width=\textwidth]{packet_layered.png}
     \caption{A Packet consists of different nested layers}%
     \label{fig:nested_layers_packet}
 \end{figure}
@@ -268,17 +266,18 @@ An example of an HTTP GET request is shown in Lsiting~\ref{listing:example-http-
 
 
 
-
+\FloatBarrier
 \section{Resolve a Domain Name}
 \begin{question}
     Try to complete the DNS query code in Listing~\ref{listing:dns-query} and change the source port to random (allowed) number.
+    If you are connected to a KU Leuven network, change the IP address of the DNS server because external DNS servers are blocked.
+    This can be done by using Wireshark by monitoring DNS queries or by executing \texttt{ipconfig \textbackslash all}. 
 \end{question}
 
 
 \begin{listing}[h]
 \inputminted[firstline=16]{python}{../code_students/dns_query.py}
-\caption{DNS Query}%
-\label{listing:dns-query}
+\caption{DNS Query}\label{listing:dns-query}
 \end{listing}
 
 \begin{question}
@@ -288,7 +287,8 @@ An example of an HTTP GET request is shown in Lsiting~\ref{listing:example-http-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Make an ARP request to a friend}
+\FloatBarrier
+\section{Make an ARP Request to a Friend}
 \begin{question}
 \begin{itemize}
     \item On which layer does ARP operate?
@@ -300,35 +300,35 @@ An example of an HTTP GET request is shown in Lsiting~\ref{listing:example-http-
 \end{question}
 
 \begin{question}
-Try to resolve the MAC address of a system in your LAN.
+Try to resolve the MAC address of a system in your LAN using the example code from Listing~\ref{listing:arp-request}.
 \end{question}
 
-%
-%
-%\begin{listing}[h]
-%\begin{minted}{python}
-%from scapy.all import *
-%
-%# Fill in the MAC address for ARP request
-%mac_addr = "" 
-%
-%# Fill in the IP address of the machine
-%ip_addr = ""
-%
-%# The following line creates an Ethernet frame (Layer 1)
-%# An ARP message operates on top of an Layer 1 frame.
-%arp_frame = Ether(dst=mac_addr) / ARP(op=1, pdst=ip_addr)
-%
-%# Send the frame and wait for answers
-%resp, unans = srp(arp_frame)
-%
-%for s, r in resp:
-%    print(r[Ether].src)
-%\end{minted}
-%\caption{ARP}\label{listing:stealth-scanning}
-%\end{listing}
 
 
+\begin{listing}[h]
+\begin{minted}{python}
+from scapy.all import *
+
+# Fill in the MAC address for ARP request
+mac_addr = "" 
+
+# Fill in the IP address of the machine
+ip_addr = ""
+
+# The following line creates an Ethernet frame (Layer 1)
+# An ARP message operates on top of an Layer 1 frame.
+arp_frame = Ether(dst=mac_addr) / ARP(op=1, pdst=ip_addr)
+
+# Send the frame and wait for answers
+resp, unans = srp(arp_frame)
+
+for s, r in resp:
+    print(r[Ether].src)
+\end{minted}
+\caption{ARP}\label{listing:arp-request}
+\end{listing}
+
+\FloatBarrier
 \section{Stealth Scanning}
 Stealth scanning exploits the TCP three way handshake to discover if ports are open on an Internet-accessible computer. In order to understand the working principle of this technique, study the TCP three way handshake and include this in you report.
 
@@ -345,6 +345,18 @@ Try to use the \texttt{report\_ports} function of Scapy to evaluate the results 
 \end{listing}
 
 
+\FloatBarrier
+\section{Report}
+Each student writes an \textbf{individual report}. 
+This report must contain the answers to the questions and must \textbf{demonstrate} that the student has \textbf{understood} Scripts. 
+
+All Python \textbf{code} must be well \textbf{documented}.
+The report and the code has to be send to \texttt{gilles.callebaut@kuleuven.be} and a printed version needs to be handed in. The \textbf{code} itself does \textbf{not} need to be \textbf{included and discussed} in the \textbf{report}.
+
+%The report is expected to be structured and styled as described in~\cite{hoogenboom2012write,kallestinova2011write}.
+
+The report needs to be \textbf{submitted} before 16/05/2019 22h00 and handed no later than 17/05/2019.
+
 
 
 
@@ -357,30 +369,33 @@ Try to use the \texttt{report\_ports} function of Scapy to evaluate the results 
 
 Scapy's interactive shell is run in a terminal session. Root privileges are needed to send the packets. However, in these lab sessions, you are primarily going to use these functions to display information concerning default values or available layers and fields.
 
+\subsection{Entering the Scapy Environment}
+
+The Scapy environment is accessible by executing \texttt{scapy} in a terminal:
+%
 \begin{lstlisting}
 >scapy 
 \end{lstlisting}
+%
+You can go out the environment with the \texttt{exit()} command.
 
-Go out with 'exit()'
+\subsection{List Available Commands}
+You can check the available commands in Scapy through running \texttt{lsc()}. In the following subsections, we will discuss the commands which we will be using in these lab sessions.
 
-\subsubsection{help()}
-This is a wrapper around pydoc.help\footnote{The pydoc module automatically generates documentation from Python modules. The documentation can be presented as pages of text on the console, served to a Web browser, or saved to HTML files} that provides a helpful message when 'help' is typed at the Python interactive prompt.
+\subsubsection{Help}
+The \texttt{help()} function is a wrapper around pydoc.help\footnote{The pydoc module automatically generates documentation from Python modules. The documentation can be presented as pages of text on the console, served to a Web browser, or saved to HTML files} that provides a helpful message when `help' is typed at the Python interactive prompt.
 
-Calling help() at the Python prompt starts an interactive help session.
-Calling help(thing) prints help for the python object 'thing'.
+\begin{itemize}
+  \item Calling \texttt{help()} at the Python prompt starts an interactive help session.
+  \item Calling \texttt{help(thing)} prints help for the python object `thing'.
+\end{itemize}
 
-\subsubsection{ls()}
-Help on function ls in module scapy.packet:
-\begin{lstlisting}
-ls(obj=None, case_sensitive=False, verbose=False)
-    List  available layers, or infos on a given layer class or name
-\end{lstlisting}
-Examples:
+\subsubsection{List Available Protocols}
+You can list the available protocols and fields for each layer by using \texttt{ls()}. 
+If you run this command without an argument, all the supported protocols are listed.
+When including a protocol as the argument, e.g. \texttt{ls(ARP)}, the fields and their defaults will be displayed.
 
-
-\subsubsection{lsc()}
-
-\subsubsection{show\_interfaces()}
+%\subsubsection{show\_interfaces()}
 
 
 \end{document}
