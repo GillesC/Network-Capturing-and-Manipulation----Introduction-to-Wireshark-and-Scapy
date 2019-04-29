@@ -31,5 +31,5 @@ for target in ip_range:
         print("{} is alive".format(target))
         for port in port_range:
             if(scan_port(target, port)):
-                print("\t {}".format(
-                    target, socket.getservbyport(port, protocolname='tcp')))
+                print("\t {} {}".format(
+                    target, socket.getservbyport(port, 'tcp')))

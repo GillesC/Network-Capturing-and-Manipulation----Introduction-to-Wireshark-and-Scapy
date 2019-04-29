@@ -17,6 +17,7 @@
 \usepackage{marginnote}
 %\usepackage{enumitem}
 \usepackage{graphicx}
+\usepackage{vhistory}
 
 \usepackage{minted}
 %\usepackage[top=2.5cm, bottom=2.5cm, outer=5cm, inner=4cm, heightrounded, marginparwidth=3cm, marginparsep=0.5cm]{geometry}
@@ -45,13 +46,19 @@ breaklines
 
 \title{Network Capturing and Manipulation Introduction to Wireshark and Scapy}
 \author{Gilles Callebaut\\ \texttt{gilles.callebaut@kuleuven.be}}
-\date{Ghent Technology Campus, KU Leuven\\ \today}
+\date{Ghent Technology Campus, KU Leuven\\ \today \\v1.2}
 
 
 
 \begin{document} \sloppy
 
 \maketitle
+
+\begin{versionhistory}
+    \vhEntry{1.0}{25/04/2019}{GC}{Created}
+    \vhEntry{1.1}{01/04/2019}{GC}{Revised deadlines}
+    \vhEntry{1.2}{29/04/2019}{GC}{Clarify Question 4  and Update Listing~\ref{listing:stealth-scanning}}
+  \end{versionhistory}
 
 \clearpage
 
@@ -160,22 +167,22 @@ This looks more interesting! The Wireshark interface has five major components:
     of packets displayed as well (see, e.g., the many different protocol types shown in
     the Protocol column in Figure 3). Even though the only action you took was to
     download a web page, there were evidently many other protocols running on your
-    computer that are unseen by the user. Be aware that there is often much more going on than ''meet’s the eye''!
-    \item Type in ''http'' (without the quotes, and in lower case – all protocol names are in
+    computer that are unseen by the user. Be aware that there is often much more going on than ``meet's the eye''!
+    \item Type in ``http'' (without the quotes, and in lower case – all protocol names are in
     lower case in Wireshark) into the display filter specification window at the top of
     the main Wireshark window. Then select Apply (to the right of where you entered
-    ''http''). This will cause only HTTP message to be displayed in the packet-listing
+    ``http''). This will cause only HTTP message to be displayed in the packet-listing
     window.
     
     \begin{question}
-        List \textbf{ten different protocols} that appear in the protocol column in the unfiltered packet-listing window. Try to explain the most important fields of, at least, three of these protocols. What is the \textbf{purpose} of these protocols and \textbf{where} are they located in the \textbf{OSI model}?
+        List \textbf{ten different protocols} that appear in the protocol column in the unfiltered packet-listing window. Try to explain the most important fields of, at least, three of these protocols. What is the \textbf{purpose} of these 10 protocols and \textbf{where} are they located in the \textbf{OSI model}?
     \end{question}%
     
     
     
     
     \item Find the HTTP GET message that was sent from your computer to the
-    \url{gaia.cs.umass.edu} HTTP server. (Look for an HTTP GET message in the ``listing
+    \url{gaia.cs.umass.edu} HTTP server. Look for an HTTP GET message in the ``listing
     of captured packets'' portion of the Wireshark window  that shows
     ``GET'' followed by the \url{gaia.cs.umass.edu} URL that you entered. When you
     select the HTTP GET message, the Ethernet frame, IP datagram, TCP segment,
@@ -271,7 +278,7 @@ An example of an HTTP GET request is shown in Lsiting~\ref{listing:example-http-
 \begin{question}
     Try to complete the DNS query code in Listing~\ref{listing:dns-query} and change the source port to random (allowed) number.
     If you are connected to a KU Leuven network, change the IP address of the DNS server because external DNS servers are blocked.
-    This can be done by using Wireshark by monitoring DNS queries or by executing \texttt{ipconfig \textbackslash all}. 
+    This can be done by using Wireshark by monitoring DNS queries or by executing \texttt{ipconfig /all}. 
 \end{question}
 
 

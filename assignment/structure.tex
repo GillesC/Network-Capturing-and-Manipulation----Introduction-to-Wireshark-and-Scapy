@@ -175,7 +175,7 @@
 	nobreak,
 	singleextra={%
 		\draw(P-|O)node[xshift=1em,anchor=west,fill=white,draw,rounded corners=5pt]{%
-		Question %\theQuestion%
+		Question \theQuestion%
 		%\questionTitle%
 		};
 	},
@@ -186,7 +186,7 @@
 % Define a custom environment for numbered questions
 \newenvironment{question}[1][\unskip]{
 	%\bigskip
-	%\stepcounter{Question}
+	\stepcounter{Question}
 	\newcommand{\questionTitle}{~#1}
 	\begin{mdframed}[style=question]
 }{
