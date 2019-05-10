@@ -1,4 +1,3 @@
-
 *.out
 *.log
 *.gz
@@ -7,10 +6,10 @@
 *.aux
 *.pygtex
 *.pygstyle
-main.pdf
 code/
 *.toc
 *.toc
 assignment/main.toc
 assignment/main.hst
 assignment/main.ver
+assignment/main.toc
