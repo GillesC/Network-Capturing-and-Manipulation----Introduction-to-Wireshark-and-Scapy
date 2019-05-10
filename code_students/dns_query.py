@@ -20,6 +20,7 @@ dst_ip_address = "" # Use IP address of Google Public DNS
 sends_over_udp =  # False or True?
 dest_port =  # Port DNS listens to
 site_name = "kuleuven.be" # name of website
+layer_two = # True of False? L2 or L3?
 
 
 # DO NOT TOUCH THIS CODE, but feel free to check out the code :)
@@ -32,5 +33,8 @@ dns_query = network_layer/transport_layer/app_layer
 print(dns_query.summary())
 
 #send query and wait for 1 response
-response = sr1(dns_query)
+if layer_two:
+	response = srp1(dns_query)
+else:
+	response = sr1(dns_query)
 print(response.summary())
