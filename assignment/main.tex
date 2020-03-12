@@ -208,14 +208,24 @@ In these sessions, we will primarily use scripts. However, the interactive shell
 
 
 \subsection{Installing Scapy}
-In these labs we will be using Anaconda. Anaconda is developed primarily for data science, it is a Python distribution that comes preinstalled with lots of useful python libraries for data science. To install Anaconda, navigate to \url{www.anaconda.com/distribution/#download-section} and download the Python 3.7 version for your operating system. During the installation procedure, you will have the option to install Visual Studio Code (VSC). Depending on your preferences, you can install VSC or use other Python IDEs, e.g., PyCharm Edu. After installing Anaconda, open the Anaconda Prompt and install Scapy: \texttt{pip install scapy}.
+\begin{itemize}
+    \item Install \href{https://www.python.org/downloads}{Python 3.X} (be sure to install the 64-bit version if applicable)
+    \item Install PyCharm or Visual Studio Code or your favorite edittor/IDE
+    \item Create a project directory, i.e.\ create a folder
+    \item Navigate to the project directory in the command prompt (no PowerShell)
+    \item Create a virtual environment in the project directory: \texttt{python -m venv .venv} (make sure that the right python version is in your path). If you are unsure about what your doing, get the absolute path to the python executable and use that, e.g.,:
+    \texttt{C:\char`\\Users\char`\\u0111378\char`\\AppData\char`\\Local\char`\\Programs\char`\\Python\char`\\Python38\char`\\python.exe -m venv .venv}
+    \item Activate the virtual environment:
+    \texttt{.\char`\\venv\char`\\Scripts\char`\\activate}. \texttt{(.venv)} will now be shown before the command line.
+    \item Install Scapy in the same terminal: \texttt{pip install scapy}.
+\end{itemize}
 
 \begin{question}
     Open a Terminal and open the Scapy interactive shell. Try to find the default interface by executing \texttt{conf.iface}. Is this the correct interface? 
 \end{question}
 
 \subsection{Creating Packets with Scapy}
-Packets consists of different nested layers, cfr. OSI-model. This is depicted in Figure~\ref{fig:nested_layers_packet}. Equivalently, stacking layers is done by using the `/` operator, as illustrated in Listing~\ref{listing:stacking-layers}.
+Packets consists of different nested layers, cfr. OSI-model. This is depicted in Figure~\ref{fig:nested_layers_packet}. Equivalently, stacking layers is done by using the \texttt{`/`} operator, as illustrated in Listing~\ref{listing:stacking-layers}.
 
 \begin{listing}[h]
 \inputminted{python}{../code_students/example_stacking_layers.py}
@@ -330,14 +340,14 @@ Try to use the \texttt{report\_ports} function of Scapy to evaluate the results 
 \FloatBarrier
 \section{Report}
 Each student writes an \textbf{individual report}. 
-This report must contain the answers to the questions and must \textbf{demonstrate} that the student has \textbf{understood} Scripts. 
+This report must contain the answers to the questions and must \textbf{demonstrate} that the student has \textbf{understood} the protocols and the Scapy scripts. 
 
 All Python \textbf{code} must be well \textbf{documented}.
 The report and the code has to be send to \texttt{gilles.callebaut@kuleuven.be} and a printed version needs to be handed in. The \textbf{code} itself does \textbf{not} need to be \textbf{included and discussed} in the \textbf{report}.
 
 %The report is expected to be structured and styled as described in~\cite{hoogenboom2012write,kallestinova2011write}.
 
-The report needs to be \textbf{submitted} before 16/05/2019 22h00 and handed no later than 17/05/2019.
+The report needs to be digitally \textbf{submitted} before 11/05/2020 22h00 and handed in no later than 15/05/2020.
 
 
 
