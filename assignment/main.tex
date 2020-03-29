@@ -61,6 +61,7 @@ breaklines
     \vhEntry{1.2}{29/04/2019}{GC}{Clarify Question 4 and Update Listing~\ref{listing:stealth-scanning}}
     \vhEntry{1.3}{12/03/2020}{GC}{Updated deadlines and removed Anaconda}
     \vhEntry{1.4}{15/03/2020}{GC}{Adjusted so the lab session could be done at home}
+    \vhEntry{1.5}{29/03/2020}{GC}{Added example scapy project set-up Section~\ref{sec:getting-to-know-scapy}}
 \end{versionhistory}
 
 \vfill
@@ -214,7 +215,7 @@ This looks more interesting! The Wireshark interface has five major components:
 Congratulations! You are now a Wireshark-expert.
 
 \FloatBarrier
-\section{Getting to know Scapy}
+\section{Getting to know Scapy}\label{sec:getting-to-know-scapy}
 After monitoring packets in Wireshark, let's manipulate some packets with Scapy!
 
 Scapy is a powerful interactive packet manipulation program. It is able to forge or decode packets of a wide number of protocols, send them on the wire, capture them, match requests and replies, and much more. Scapy can easily handle most classical tasks like scanning, tracerouting, probing, unit tests, attacks or network discovery. It can replace hping, arpspoof, arp-sk, arping, p0f and even some parts of Nmap, tcpdump, and tshark.
@@ -235,7 +236,6 @@ In these sessions, we will primarily use scripts. However, the interactive shell
     \texttt{.\char`\\venv\char`\\Scripts\char`\\activate}. \texttt{(.venv)} will now be shown before the command line.
     \item Install Scapy in the same terminal: \texttt{pip install scapy}.
 \end{itemize}
-
 
 \begin{listing}[h]
 \inputminted{batch}{../code_students/create_scapy_project.cmd}
