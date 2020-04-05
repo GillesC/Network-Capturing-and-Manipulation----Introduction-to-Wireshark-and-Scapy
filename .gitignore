@@ -14,3 +14,7 @@ assignment/main.hst
 assignment/main.ver
 assignment/main.toc
 assignment/main.toc
+.venv
+.venv/*
+.idea
+.idea/*
