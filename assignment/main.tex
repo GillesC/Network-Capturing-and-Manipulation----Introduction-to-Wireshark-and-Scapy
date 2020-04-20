@@ -287,6 +287,7 @@ Packets consists of different nested layers, cfr. OSI-model. This is depicted in
  \begin{question}
      Use wireshark to monitor the result of \texttt{ping -4 google.com} and explain. What is the purpose of the \texttt{-4} argument? 
      Use \texttt{srloop()} or \texttt{srploop()} to replicate such a ping request.\footnote{Specify the \texttt{id} field (e.g., 1), because the default value is zero and is often blocked by firewalls. }
+     Validate the content of the DNS response in Scapy with the DNS response shown in Wireshark.
  \end{question}
  
 \subsubsection{Creating packets at the Application Layer}
