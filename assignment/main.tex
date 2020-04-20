@@ -225,6 +225,8 @@ Scapy is a powerful interactive packet manipulation program. It is able to forge
 Scapy can be run in two different modes, interactively from a terminal window and programmatically from a Python script. 
 In these sessions, we will primarily use scripts. However, the interactive shell is useful to consult the documentation and  access the \texttt{ls} function. I advise you to open a terminal to use the functions described in Section~\ref{sec:scapy-interactive} to better understand the code.
 
+\textbf{Try to verify your Scapy code with Wireshark.}
+
 
 \subsection{Installing Scapy}
 \begin{itemize}
@@ -304,7 +306,7 @@ An example of an HTTP GET request is shown in Lsiting~\ref{listing:example-http-
 \FloatBarrier
 \section{Resolve a Domain Name}
 Try to complete the \textbf{DNS query} code in Listing~\ref{listing:dns-query} and change the source port to random (allowed) number.
-f you are connected to a KU Leuven network, change the IP address of the DNS server to the current used DNS server by your computer because external DNS servers are blocked. The DNS server used by your computer can be found by monitoring DNS queries in Wireshark or by executing \texttt{ipconfig \textbackslash all} in your terminal.
+if you are connected to a KU Leuven network, change the IP address of the DNS server to the current used DNS server by your computer because external DNS servers are blocked. The DNS server used by your computer can be found by monitoring DNS queries in Wireshark or by executing \texttt{ipconfig \textbackslash all} in your terminal.
 
 \begin{question}
     \textbf{Explain} the choice of \textbf{variables}, e.g., which DNS type did you use and why and which source port did you use and why is it allowed to be used by user applications?
@@ -382,11 +384,12 @@ This report must contain the answers to the questions and must \textbf{demonstra
     \end{itemize}
     \item Conclusion(s)
     \item References (referenced in the report)
+    More information regarding citing other sources can be found in this video: \url{vimeo.com/220916942}.
 \end{itemize}
-A \LaTeX\ template and tips-and-tricks can be found here: \url{https://github.com/dramco-edu/LaTex}. More general tips-and-tricks for writing reports can be accessed here: \url{https://dramco-edu.github.io/Thesis-Tips-and-Tricks/}. 
+A \LaTeX\ template and tips-and-tricks can be found here: \url{github.com/dramco-edu/LaTex}. More general tips-and-tricks for writing reports can be accessed here: \url{dramco-edu.github.io/Thesis-Tips-and-Tricks/}. 
 
 All Python \textbf{code} must be well \textbf{documented}.
-The report and the code has to be send to \texttt{gilles.callebaut@kuleuven.be} and a printed version needs to be handed in. The \textbf{code} needs to be \textbf{included and discussed} in the \textbf{report} (no screenshots). The report can be written in Dutch or English but not both, with the exception of specific terminology. 
+The report and the code has to be send to \texttt{gilles.callebaut@kuleuven.be} and a printed version needs to be handed in. The \textbf{code} needs to be \textbf{included and discussed} in the \textbf{report} (no screenshots), including output (if relevant). The report can be written in Dutch or English but not both, with the exception of specific terminology. 
 
 \begin{description}
 	\item[File name format]  \texttt{<firstname>\_<lastname>\_report.pdf}
