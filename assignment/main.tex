@@ -119,7 +119,7 @@ there is a list of so-called interfaces. Be sure to locate the interface on the 
 connectivity, e.g., mostly likely a WiFi or Ethernet interface, and select that interface.
 
 \begin{question}
-    Try to explain the different interfaces displayed on the first screen.
+    Try to explain the different interfaces displayed on the first screen. You can find out more about the interfaces by running \texttt{Get-NetAdapter -IncludeHidden} in Windows PowerShell.
 \end{question}
 
 Let's take Wireshark out for a spin! If you click on one of these interfaces to start packet
@@ -224,13 +224,15 @@ After monitoring packets in Wireshark, let's manipulate some packets with Scapy!
 Scapy is a powerful interactive packet manipulation program. It is able to forge or decode packets of a wide number of protocols, send them on the wire, capture them, match requests and replies, and much more. Scapy can easily handle most classical tasks like scanning, tracerouting, probing, unit tests, attacks or network discovery. It can replace hping, arpspoof, arp-sk, arping, p0f and even some parts of Nmap, tcpdump, and tshark.
 
 Scapy can be run in two different modes, interactively from a terminal window and programmatically from a Python script. 
-In these sessions, we will primarily use scripts. However, the interactive shell is useful to consult the documentation and  access the \texttt{ls} function. I advise you to open a terminal to use the functions described in Section~\ref{sec:scapy-interactive} to better understand the code.
+In these sessions, we will primarily use scripts. However, the interactive shell is useful to consult the documentation and  access the \texttt{ls} function. I advise you to open a terminal to use the functions described in Section~\ref{sec:scapy-interactive} to better understand the code. 
 
 \textbf{Try to verify your Scapy code with Wireshark.}
 
 
 \subsection{Installing Scapy}
+\textbf{TODOOOOOOOOOO}
 \begin{itemize}
+    \item First install miniconda as described here: \url{dramco-edu.github.io/python-crash-course}
     \item Install \href{https://www.python.org/downloads}{Python 3.X} (be sure to install the 64-bit version if applicable)
     \item Install PyCharm or Visual Studio Code or your favorite edittor/IDE
     \item Create a project directory, i.e.\ create a folder
@@ -290,7 +292,6 @@ Packets consists of different nested layers, cfr. OSI-model. This is depicted in
  \begin{question}
      Use wireshark to monitor the result of \texttt{ping -4 google.com} and explain. What is the purpose of the \texttt{-4} argument? 
      Use \texttt{srloop()} or \texttt{srploop()} to replicate such a ping request.\footnote{Specify the \texttt{id} field (e.g., 1), because the default value is zero and is often blocked by firewalls. }
-     Validate the content of the DNS response in Scapy with the DNS response shown in Wireshark.
  \end{question}
  
 \subsubsection{Creating packets at the Application Layer}
@@ -311,6 +312,7 @@ if you are connected to a KU Leuven network, change the IP address of the DNS se
 
 \begin{question}
     \textbf{Explain} the choice of \textbf{variables}, e.g., which DNS type did you use and why and which source port did you use and why is it allowed to be used by user applications?
+    Validate the content of the DNS response in Scapy with the DNS response shown in Wireshark.
 \end{question}
 
 
