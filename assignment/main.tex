@@ -64,6 +64,7 @@ breaklines
     \vhEntry{1.5}{29/03/2020}{GC}{Added example scapy project set-up Section~\ref{sec:getting-to-know-scapy}}
     \vhEntry{1.6}{18/04/2020}{GC}{Updated questions with more details and report description}
     \vhEntry{1.6.1}{20/04/2020}{GC}{Update Q8 and the report}
+    \vhEntry{1.7}{08/03/2021}{GC}{Added Case studies}
 \end{versionhistory}
 
 \vfill
@@ -291,11 +292,11 @@ Packets consists of different nested layers, cfr. OSI-model. This is depicted in
  
  \begin{question}
      Use wireshark to monitor the result of \texttt{ping -4 google.com} and explain. What is the purpose of the \texttt{-4} argument? 
-     Use \texttt{srloop()} or \texttt{srploop()} to replicate such a ping request.\footnote{Specify the \texttt{id} field (e.g., 1), because the default value is zero and is often blocked by firewalls. }
+     Use \texttt{srloop()} or \texttt{srploop()} to replicate such a ping request.\footnote{Specify the \texttt{id} field (e.g., 1), because the default value is zero and is often blocked by firewalls. } Validate the content of the DNS response in Wireshark due to pinging "google.com".
  \end{question}
  
 \subsubsection{Creating packets at the Application Layer}
-An example of an HTTP GET request is shown in Lsiting~\ref{listing:example-http-get}. It demonstrates how easy it is to include the application layer. 
+An example of an HTTP GET request is shown in Listings~\ref{listing:example-http-get}. It demonstrates how easy it is to include the application layer. 
 
 \begin{listing}[h]
 \inputminted{python}{../code_students/example-http-get.py}
@@ -380,6 +381,7 @@ This report must contain the answers to the questions and must \textbf{demonstra
         \begin{itemize}
             \item What?
             \item Why?
+            \item Explain the difference between L2 and L3 communication.
         \end{itemize}
     \item Q\&A
     \begin{itemize}
@@ -405,12 +407,42 @@ The report and the code has to be send to \texttt{gilles.callebaut@kuleuven.be} 
 
 %The report is expected to be structured and styled as described in~\cite{hoogenboom2012write,kallestinova2011write}.
 
-The report needs to be digitally \textbf{submitted} before 11/05/2020 22h00.% and handed in no later than 15/05/2020.
+The deadline for handing in the report will be discussed during the lab session.
 Prior to submitting your report, check the most recent version of the assignment on \url{github.com/GillesC/Network-Capturing-and-Manipulation----Introduction-to-Wireshark-and-Scapy}.
 
 
 
+%%%%%%%%%%%%%%%%%% Case studies %%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Case studies}
+Now that you have mastered Scapy and Wireshark, we will investigate different use cases involving network protocols. In the last three sessions, you will focus on \textbf{one} specific use case (first two sessions) and \textbf{present} your findings to your colleagues\footnote{No report is neccasary.} (last session). 
 
+You may request a topic/use case from the list (Table~\ref{tab:use-cases}) or propose your own topic by sending a mail to \texttt{gilles.callebaut@kuleuven.be}\footnote{First come, first served applies.}. The presentation should take 10 minutes (presenting) excluding a 5 minute window for discussion and questions. Please visit \url{www.principiae.be} for excellent resources on improving your presentation skills. In this presentation, you will demonstrate what you have done. It is meant to prove that you are able to work with Scapy and Wireshark and have understood the basics of communicating on the Internet.
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\caption{Proposed use case (non-exhaustive list)}%
+\label{tab:use-cases}
+\footnotesize
+%\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}p{1cm} l p{2cm} p{5cm} p{2cm}p{2cm}@{}}
+\toprule
+Group ID &\# pers & topic & explanation & ELCIT1 & ELICT2 \\ \midrule
+1&2       & TCP reset hacking     &  This attack forces to prematurely close a TCP connection between two victim hosts. & Lyssa \& Marieke  &   Emmy \& Milan        \\
+2&2       & ARP spoofing      &   N.A.  & Renaut \& Matthieu & Tobi \& Sander       \\
+3&1       & Tracerouting     & Implement tracerouting in Scapy and explain the protocol by means of examples.  & Wannes &  Niels       \\ 
+4&1 & Ping of death & Setup a PC or raspberry pi to execute a DOS ping of death attack.& Jarno & Wout \\
+5&2 & DNS Amplification Attack & Attack the other person by means of a DNS amplication attack. & Piet \& Jonas & Elian \& Henri\\
+6&2 & Monitoring & Capture different protocols and summarize/visualize the data over a network on a webpage. Draw conclusions based on your findings. & Noah \& Robin & Daan \& Siemen\\
+7&1 & Real-time TCP handshake & Implement the TCP handshake to be able to use upper-laying protocols such as HTTP & Raynaud &\\
+8&2 & Mitigate DOS attack (SYN flood) & Try to mitigate the SYN flood attack by inspecting the packets send by group 4. & Maxou \& Toon & Tim \& Lucas\\
+9 & 2 &pwnagotchi & Install \url{pwnagotchi.ai} and experiment with its capabilities. Show your class what you have learnt and how it works. & Marthe \& Abbe & Fien \& Robin \\
+10&1& Capture a DHCP DORA & Capture the allocation and request of an IP address from the DHCP service.\\
+\bottomrule
+\end{tabular}%
+%}
+\end{table}
 
 %%%%%%%%%%%%%%%%%% APPENDIX %%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
