@@ -185,10 +185,10 @@ This looks more interesting! The Wireshark interface has five major components:
     the Protocol column in Figure 3). Even though the only action you took was to
     download a web page, there were evidently many other protocols running on your
     computer that are unseen by the user. Be aware that there is often much more going on than ''meet’s the eye''!
-    \item Type in ''http'' (without the quotes, and in lower case – all protocol names are in
+    \item Type in ``http'' (without the quotes, and in lower case – all protocol names are in
     lower case in Wireshark) into the display filter specification window at the top of
     the main Wireshark window. Then select Apply (to the right of where you entered
-    ''http''). This will cause only HTTP message to be displayed in the packet-listing
+    ``http''). This will cause only HTTP message to be displayed in the packet-listing
     window.
     
     \begin{question}
@@ -235,22 +235,27 @@ In these sessions, we will primarily use scripts. However, the interactive shell
 
 
 \subsection{Installing Scapy}
-\begin{itemize}
-    \item First install miniconda as described here: \url{dramco-edu.github.io/python-crash-course}
-    \item Install \href{https://www.python.org/downloads}{Python 3.X} (be sure to install the 64-bit version if applicable)
-    \item Install PyCharm or Visual Studio Code or your favorite edittor/IDE
-    \item Create a project directory, i.e.\ create a folder
-    \item Navigate to the project directory in the command prompt (no PowerShell)
-    \item Create a virtual environment in the project directory: \texttt{python -m venv .venv} (make sure that the right python version is in your path). If you are unsure about what your doing, get the absolute path to the python executable and use that, e.g.,:
-    \texttt{C:\char`\\Users\char`\\u0111378\char`\\AppData\char`\\Local\char`\\Programs\char`\\Python\char`\\Python38\char`\\python.exe -m venv .venv}
-    \item Activate the virtual environment:
-    \texttt{.\char`\\venv\char`\\Scripts\char`\\activate}. \texttt{(.venv)} will now be shown before the command line.
-    \item Install Scapy in the same terminal: \texttt{pip install scapy}.
-\end{itemize}
 
-\begin{listing}[h]
-\inputminted{batch}{../code_students/create_scapy_project.cmd}
-\end{listing}
+Follow the installation guide of Scapy: \url{https://scapy.readthedocs.io/en/latest/installation.html}.
+We suggest creating one virtual environment for this lab, containing all necessary packages. 
+
+
+% \begin{itemize}
+%     \item First install miniconda as described here: \url{dramco-edu.github.io/python-crash-course}
+%     \item Install \href{https://www.python.org/downloads}{Python 3.X} (be sure to install the 64-bit version if applicable)
+%     \item Install PyCharm or Visual Studio Code or your favorite edittor/IDE
+%     \item Create a project directory, i.e.\ create a folder
+%     \item Navigate to the project directory in the command prompt (no PowerShell)
+%     \item Create a virtual environment in the project directory: \texttt{python -m venv .venv} (make sure that the right python version is in your path). If you are unsure about what your doing, get the absolute path to the python executable and use that, e.g.,:
+%     \texttt{C:\char`\\Users\char`\\u0111378\char`\\AppData\char`\\Local\char`\\Programs\char`\\Python\char`\\Python38\char`\\python.exe -m venv .venv}
+%     \item Activate the virtual environment:
+%     \texttt{.\char`\\venv\char`\\Scripts\char`\\activate}. \texttt{(.venv)} will now be shown before the command line.
+%     \item Install Scapy in the same terminal: \texttt{pip install scapy}.
+% \end{itemize}
+
+% \begin{listing}[h]
+% \inputminted{batch}{../code_students/create_scapy_project.cmd}
+% \end{listing}
 
 
 \begin{question}
@@ -431,20 +436,20 @@ You may request a topic/use case from the list (Table~\ref{tab:use-cases}) or pr
 \label{tab:use-cases}
 \footnotesize
 %\resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}p{1cm} l p{2cm} p{5cm} p{2cm}p{2cm}@{}}
+\begin{tabular}{@{}p{1cm} l p{4cm} p{8cm}@{}}
 \toprule
-Group ID &\# pers & topic & explanation & ELCIT1 & ELICT2 \\ \midrule
-1&2       & TCP reset hacking     &  This attack forces to prematurely close a TCP connection between two victim hosts. & &      \\
-2&2       & ARP spoofing      &    &        \\
-3&1       & Tracerouting     & Implement tracerouting in Scapy and explain the protocol by means of examples.  &  &         \\ 
-4&1 & Ping of death & Setup a PC or raspberry pi to execute a DOS ping of death attack.&& \\
-5&2 & DNS Amplification Attack & Attack the other person by means of a DNS amplication attack. && \\
-6&2 & Monitoring & Capture different protocols and summarize/visualize the data over a network on a webpage. Draw conclusions based on your findings. & & \\
-7&1 & Real-time TCP handshake & Implement the TCP handshake to be able to use upper-laying protocols such as HTTP &  &\\
-8&2 & Mitigate DOS attack (SYN flood) & Try to mitigate the SYN flood attack by inspecting the packets send by group 4. &  &  \\
-9 & 2 &pwnagotchi & Install \url{pwnagotchi.ai} and experiment with its capabilities. Show your class what you have learned and how it works. & &  \\
-10&1& Capture a DHCP DORA & Capture the allocation and request of an IP address from the DHCP service. & & \\
-11&2& Build your own DNS server with a Raspberry Pi. & & \\
+Group ID &\# pers & topic & explanation \\ \midrule
+1&2       & TCP reset hacking     &  This attack forces to prematurely close a TCP connection between two victim hosts. \\
+2&2       & ARP spoofing       \\
+3&1       & Tracerouting     & Implement tracerouting in Scapy and explain the protocol by means of examples.  \\ 
+4&1 & Ping of death & Setup a PC or raspberry pi to execute a DOS ping of death attack.\\
+5&2 & DNS Amplification Attack & Attack the other person by means of a DNS amplication attack. \\
+6&2 & Monitoring & Capture different protocols and summarize/visualize the data over a network on a webpage. Draw conclusions based on your findings. \\
+7&1 & Real-time TCP handshake & Implement the TCP handshake to be able to use upper-laying protocols such as HTTP \\
+8&2 & Mitigate DOS attack (SYN flood) & Try to mitigate the SYN flood attack by inspecting the packets send by group 4.  \\
+9 & 2 &pwnagotchi & Install \url{pwnagotchi.ai} and experiment with its capabilities. Show your class what you have learned and how it works.  \\
+10&1& Capture a DHCP DORA & Capture the allocation and request of an IP address from the DHCP service.  \\
+11&2& Build your own DNS server with a Raspberry Pi.  \\
 \bottomrule
 \end{tabular}%
 %}
@@ -454,17 +459,44 @@ Group ID &\# pers & topic & explanation & ELCIT1 & ELICT2 \\ \midrule
 \section{Evaluation}
 
 \textbf{Small intermediate tests.}
-The lab sessions will be evaluated by means of small tests at the end of several lab sessions. This assignment contains several questions which can help the students to assess how well they have mastered the subjects. Note that the student needs to be able to show the programming code when requested by the teaching assistant for evaluation.
+The lab sessions will be evaluated by means of small tests at the beginning of several lab sessions. This assignment contains several questions which can help the students to assess how well they have mastered the subjects. Note that the student needs to be able to show the programming code when requested by the teaching assistant for evaluation.
 
 \textbf{Written report (Question~4).}
-In addition to the tests, Question~4 has to be executed, reported, and sent to \texttt{gilles.callebaut@kuleuven.be}. It can be written in Dutch or English but not both, except specific terminology. 
+In addition to the tests, Question~4 has to be executed, reported, and sent to the teaching assistant. It can be written in Dutch or English but not both, except specific terminology. 
 
-\textbf{Presentation (recording) Use Case.}
+\textbf{Presentation Use Case.}
 See Section~\ref{sec:use-cases}.
 
 
-\textbf{Deadlines.}
-The deadlines will be communicated in the lab sessions.
+\textbf{Timeline.}
+
+Deviations from the following timeline can occur and will be communicated during the lab sessions. 
+
+\begin{description}
+    \item[Lab 1]\hfill
+    \begin{itemize}
+        \item Section 1 and 2 need to be fully done.
+        \item Report on \textit{Q\,4}.
+    \end{itemize}
+    \item[Lab 2 and 3]\hfill
+    \begin{itemize}
+        \item Send in your report about \textit{Q\,4} before the start of lab~2.
+        \item Small test about lab session 1 at the start of lab~2.
+        \item Section 4 and 5 need to be fully done.
+        \item Start exploring the use cases and choose a topic (first-come, first-served).
+    \end{itemize}
+    \item[Lab 4 and 5]\hfill
+     \begin{itemize}
+        \item Small test about lab sessions 2~and~3 at the beginning of lab~4.
+        \item  Work on your use case.
+     \end{itemize}
+    \item[Lab 6]\hfill
+    \begin{itemize}
+        \item Present your use case.
+        \item Sent all code in one \texttt{.zip} file with all code (including the questions and use case) via e-mail.
+     \end{itemize}
+        
+\end{description}
 
 %%%%%%%%%%%%%%%%%% APPENDIX %%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
