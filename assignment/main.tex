@@ -34,7 +34,7 @@
 \setlength{\parindent}{0pt}%
 
 
-\newcommand{\currentversion}{1.9}
+\newcommand{\currentversion}{1.10}
 
 \setminted{
 frame=lines,
@@ -75,7 +75,7 @@ This document is subjected to change, please consult the most recent version at:
     \vhEntry{1.7}{08/03/2021}{GC}{Added case studies}
     \vhEntry{1.8}{16/09/2021}{GC}{Updates case studies}
     \vhEntry{\currentversion}{03/01/2022}{GC}{Moved from reports to small intermediate tests at the end of each session.}
-    
+    \vhEntry{\currentversion}{09/11/2022}{GC}{Extended the tracerouting use case and removed explicitly mentioned that students need to communicate with their teaching assistant and not only me.}
 \end{versionhistory}
 \clearpage
 
@@ -424,9 +424,9 @@ Try to use the \texttt{report\_ports} function of Scapy to evaluate the results 
 
 %%%%%%%%%%%%%%%%%% Case studies %%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Case studies}\label{sec:use-cases}
-Now that you have mastered Scapy and Wireshark, we will investigate different use cases involving network protocols. In the last three sessions, you will focus on \textbf{one} specific use case (first two sessions) and \textbf{present} your findings to your colleagues\footnote{No report is neccasary.} (last session). 
+Now that you have mastered Scapy and Wireshark, we will investigate different use cases involving network protocols. In the last three sessions, you will focus on \textbf{one} specific use case (first two sessions) and \textbf{present} your findings to your colleagues\footnote{No report is necessary.} (last session). 
 
-You may request a topic/use case from the list (Table~\ref{tab:use-cases}) or propose your own topic by sending a mail to \texttt{gilles.callebaut@kuleuven.be}\footnote{First come, first served applies.}. The presentation should take 10 minutes (presenting) excluding a 5 minute window for discussion and questions. Please visit \url{www.principiae.be} for excellent resources on improving your presentation skills. In this presentation, you will demonstrate what you have done. It is meant to prove that you are able to work with Scapy and Wireshark and have understood the basics of communicating on the Internet.
+You may request a topic/use case from the list (Table~\ref{tab:use-cases}) or propose your own topic by sending a mail to the teaching assistant\footnote{First come, first served applies.}. The presentation should take 10 minutes (presenting) excluding a 5 minute window for discussion and questions. Please visit \url{www.principiae.be} for excellent resources on improving your presentation skills. In this presentation, you will demonstrate what you have done. It is meant to prove that you are able to work with Scapy and Wireshark and have understood the basics of communicating on the Internet.
 
 
 \begin{table}[h!]
@@ -463,6 +463,10 @@ The lab sessions will be evaluated by means of small tests at the beginning of s
 
 \textbf{Written report (Question~4).}
 In addition to the tests, Question~4 has to be executed, reported, and sent to the teaching assistant. It can be written in Dutch or English but not both, except specific terminology. 
+\begin{itemize}
+    \item Use the naming format:  \verb|Q4_<firstname>_<lastname>.pdf|.
+    \item Include your name, class and year.
+\end{itemize} 
 
 \textbf{Presentation Use Case.}
 See Section~\ref{sec:use-cases}.
@@ -480,8 +484,8 @@ Deviations from the following timeline can occur and will be communicated during
     \end{itemize}
     \item[Lab 2 and 3]\hfill
     \begin{itemize}
-        \item Send in your report about \textit{Q\,4} before the start of lab~2.
         \item Small test about lab session 1 at the start of lab~2.
+        \item Send in your report about \textit{Q\,4} before the start of lab~3.
         \item Sections 4, 5 and 6 need to be fully done.
         \item Start exploring the use cases and choose a topic (first-come, first-served).
     \end{itemize}
